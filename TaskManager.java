@@ -8,22 +8,29 @@ public class TaskManager {
     }
 
     public void completeTask(int index) {
+        if (index >= tasks.size() || index < 0) {
+            System.err.println("Error: Invalid index");
+            return;
+        }
+        if (tasks.get(index).isCompleted()) {
+            System.err.println("Error: this task is already completed");
+            return;
+        }
         tasks.get(index).setCompleted(true);
-        ;
     }
 
     public void displayTasks() {
         if (tasks.size() == 0) {
-            System.out.println("No tasks to display");
+            System.out.println("You have no tasks currently");
             return;
         }
+        System.out.println("Task    Due date    Status");
         for (Task task : tasks) {
-            System.out.println("Task: " + task.getTaskName());
-            System.out.println("Due date: " + task.getDueDate());
+            System.out.print(task.getTaskName() + "    " + task.getDueDate() + "    ");
             if (task.isCompleted()) {
-                System.out.println("Status: completed");
+                System.out.println("completed");
             } else {
-                System.out.println("Status: pending");
+                System.out.println("pending");
             }
         }
     }
