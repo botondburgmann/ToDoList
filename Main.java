@@ -76,19 +76,13 @@ public class Main {
                         break;
                     }
                     taskManager.displayTasks();
-                    int index = getValidIntegerInput("Which task would you like to complete? Give its index", input,
-                            0, taskManager.getSize());
+                    int index = getValidIntegerInput("Which task would you like to complete? Give its index", input, 0,
+                            taskManager.getSize());
                     taskManager.completeTask(index);
                 }
-                case 3 -> {
-                    taskManager.displayTasks();
-                }
-                case 4 -> {
-                    System.out.println("Exiting program...");
-                }
-                default -> {
-                    System.out.println("Invalid option");
-                }
+                case 3 -> taskManager.displayTasks();
+
+                case 4 -> System.out.println("Exiting program...");
             }
 
         } while (option != 4);
