@@ -3,10 +3,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-interface MyFunction {
-    boolean apply(int input, int min, int max);
-}
-
 public class Main {
 
     private static boolean isValidDateFormat(String dateString) {
@@ -19,12 +15,12 @@ public class Main {
         }
     }
 
-    private static int getValidIntegerInput(String prompt, Scanner scanner, MyFunction validation, int min, int max) {
+    private static int getValidIntegerInput(String prompt, Scanner scanner, int min, int max) {
         while (true) {
             System.out.println(prompt);
             if (scanner.hasNextInt()) {
                 int input = scanner.nextInt();
-                if (validation.apply(input, min, max)) {
+                if (input >= min && input <= max) {
                     scanner.nextLine();
                     return input;
                 } else {
@@ -36,10 +32,6 @@ public class Main {
                 scanner.nextLine();
             }
         }
-    }
-
-    private static boolean isInRange(int input, int min, int max) {
-        return (input >= min && input <= max);
     }
 
     private static String prompt() {
@@ -63,7 +55,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         do {
-            option = getValidIntegerInput(prompt(), input, Main::isInRange, 1, 5);
+            option = getValidIntegerInput(prompt(), input, 1, 5);
             switch (option) {
                 case 1 -> {
                     System.out.println("Task name: ");
@@ -85,7 +77,7 @@ public class Main {
                     }
                     taskManager.displayTasks();
                     int index = getValidIntegerInput("Which task would you like to complete? Give its index", input,
-                            Main::isInRange, 0, taskManager.getSize());
+                            0, taskManager.getSize());
                     taskManager.completeTask(index);
                 }
                 case 3 -> {
